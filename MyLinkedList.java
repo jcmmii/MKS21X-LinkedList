@@ -35,9 +35,9 @@ public class MyLinkedList{
   public String toString() {
     String ret = "";
     Node current = start;
-    for (int x = 0; x < size; x++) {
+    while (current != null) {
       ret = ret + current.getData() + ", ";
-      current = current.getNext(); //swaps the current node to be the next node
+      current = current.Next(); //swaps the current node to be the next node
     }
     return ret.substring(0,ret.length()-2); //gets rid of the extra ", "
   }

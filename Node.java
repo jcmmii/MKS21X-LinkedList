@@ -1,5 +1,5 @@
 public class Node {
-  private int data;
+  private Integer data;
   private Node next, prev;
 
   //constructor
@@ -12,11 +12,11 @@ public class Node {
     return data;
   }
 
-  public Node getNext() {
+  public Node Next() {
     return next;
   }
 
-  public Node getPrev() {
+  public Node Prev() {
     return prev;
   }
 
@@ -25,11 +25,17 @@ public class Node {
     this.data = data;
   }
 
-  public void setNext(Node next) {
-    this.next = next;
+  public void setNext(Node other) {
+    next = other;
   }
 
-  public void setPrev(Node prev) {
-    this.prev = prev;
+  public void setPrev(Node other) {
+    prev = other;
+  }
+
+  public String toString() {
+    String ret = "";
+    return ret;
+    //fill this in later
   }
 }
