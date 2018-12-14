@@ -7,22 +7,13 @@ public class Node {
     this.data = data;
   }
 
-  //accessor methods
-  public int getData() {
-    return data;
-  }
-
+  //methods
   public Node Next() {
     return next;
   }
 
   public Node Prev() {
     return prev;
-  }
-
-  //mutator methods
-  public void setData(int data) {
-    this.data = data;
   }
 
   public void setNext(Node other) {
@@ -33,9 +24,19 @@ public class Node {
     prev = other;
   }
 
+  public Integer getData() {
+    return data;
+  }
+
+  public Integer setData(Integer i) {
+    data = i;
+    return data;
+  }
+
   public String toString() {
     String ret = "";
+    ret = ret + data;
     return ret;
-    //fill this in later
   }
+
 }
