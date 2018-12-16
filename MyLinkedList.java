@@ -44,6 +44,7 @@ public class MyLinkedList{
 
   //private getNthNode method
   private Node getNthNode(int index) {
+    if (index < 0 || index >= size()) throw new IndexOutOfBoundsException();
     Node current = start;
     for (int x = 0; x < index; x++) {
       current = current.Next();
@@ -102,7 +103,7 @@ public class MyLinkedList{
     if (index <= length) {
       Node current = getNthNode(index);
       Node newNode = new Node(value);
-      if (current = start) {
+      if (current == start) {
         current.setPrev(newNode);
         newNode.setNext(current);
         start = newNode;
@@ -117,7 +118,33 @@ public class MyLinkedList{
     } else add(value);
   }
 
-}
+  public Integer remove(int index) {
+    Node current = getNthNode(index);
+    if (current == start) {
+      current.Next().setPrev(null);
+      start = current.Next();
+    }
+    if (current == end) {
+      current.Prev().setNext(null);
+      end = current.Prev();
+    }
+    else {
+      current.Prev().setNext(current.Next());
+      current.Next().setPrev(current.Prev());
+    }
+    length--;
+    return current.getData();
+  }
+
+  public boolean remove(Integer value) {
+    if (contains(value)) {
+      int index = indexOf(value);
+      remove(index);
+      return true;
+    }
+    return false;
+  }
+
 }
 
 
