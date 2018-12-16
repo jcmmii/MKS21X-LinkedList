@@ -42,20 +42,38 @@ public class MyLinkedList{
     return ret.substring(0,ret.length()-2); //gets rid of the extra ", "
   }
 
-  public Integer get(int index) {
+  //private getNthNode method
+  private Node getNthNode(int index) {
     Node current = start;
     for (int x = 0; x < index; x++) {
       current = current.Next();
     }
-    return current.getData();
+    return current;
+  }
+
+  public Integer get(int index) {
+    return getNthNode(index).getData();
   }
 
   public Integer set(int index, Integer value) {
-    Node current = start;
-    for (int x = 0; x < index; x++) {
-      current = current.Next();
+    Node current = getNthNode(index);
+    Node newNode = new Node(value);
+    if (current == start) {
+      current.Next().setPrev(newNode);
+      newNode.setNext(current.Next());
+      start = newNode;
     }
-    return current.setData(value);
+    if (current == end) {
+      current.Prev().setNext(newNode);
+      newNode.setPrev(current.Prev());
+      end = newNode;
+    } else {
+      current.Next().setPrev(newNode);
+      newNode.setNext(current.Next());
+      current.Prev().setNext(newNode);
+      newNode.setPrev(current.Prev());
+    }
+    return get(index);
   }
 
   public boolean contains(Integer value) {
@@ -67,12 +85,25 @@ public class MyLinkedList{
   }
 
   public int indexOf(Integer value) {
-    if (this.contains(value)) {
-      Node current = start;
-      for 
+    Node current = start;
+    for (int x = 0; x < length; x++) {
+      if (current.getData() == value) return x;
     }
-
+    return -1;
   }
+
+  public void add(int index, Integer value) {
+    if (index > length) {
+      add(value);
+    } else {
+      Node N = new Node(value);
+      length = length + 1;
+      if (length == 1) {
+        start = end;
+      }
+    if
+  }
+}
 }
 
 
