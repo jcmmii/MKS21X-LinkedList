@@ -79,7 +79,10 @@ public class MyLinkedList{
   public boolean contains(Integer value) {
     Node current = start;
     for (int x = 0; x < length; x++) {
-      if (current.getData() == value) return true;
+      if (current.getData() == value) {
+        return true;
+      }
+      current = current.Next();
     }
     return false;
   }
@@ -87,22 +90,33 @@ public class MyLinkedList{
   public int indexOf(Integer value) {
     Node current = start;
     for (int x = 0; x < length; x++) {
-      if (current.getData() == value) return x;
+      if (current.getData() == value) {
+        return x;
+      }
+      current = current.Next();
     }
     return -1;
   }
 
   public void add(int index, Integer value) {
-    if (index > length) {
-      add(value);
-    } else {
-      Node N = new Node(value);
-      length = length + 1;
-      if (length == 1) {
-        start = end;
+    if (index <= length) {
+      Node current = getNthNode(index);
+      Node newNode = new Node(value);
+      if (current = start) {
+        current.setPrev(newNode);
+        newNode.setNext(current);
+        start = newNode;
       }
-    if
+
+      else {
+        current.setPrev(newNode);
+        newNode.setNext(current);
+        current.Prev().setNext(newNode);
+        newNode.setPrev(current.Prev());
+      }
+    } else add(value);
   }
+
 }
 }
 
