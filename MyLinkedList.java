@@ -37,55 +37,55 @@ public class MyLinkedList{
     Node current = start;
     while (current != null) {
       ret = ret + current.getData() + ", ";
-      current = current.Next(); //swaps the current node to be the next node
+      current = current.next(); //swaps the current node to be the next node
     }
-    return ret.substring(0,ret.length()-2); //gets rid of the extra ", "
+    if (ret.length() == 0) return "[]";
+    return "[" + ret.substring(0,ret.length()-2) + "]"; //gets rid of the extra ", ", adds brackets to surround
   }
 
   //private getNthNode method
   private Node getNthNode(int index) {
-    if (index < 0 || index >= size()) throw new IndexOutOfBoundsException();
+    if (index < 0 || index >= size()) throw new IndexOutOfBoundsException(); //exception thrown when out of bounds
     Node current = start;
-    for (int x = 0; x < index; x++) {
-      current = current.Next();
+    for (int x = 0; x < index; x++) { //from 0 to the index -1
+      current = current.next();       //the current node becomes the next (so gets the Nth node )
     }
     return current;
   }
 
   public Integer get(int index) {
-    return getNthNode(index).getData();
+    return getNthNode(index).getData(); //returns the data integer
   }
 
   public Integer set(int index, Integer value) {
     Node current = getNthNode(index);
     Node newNode = new Node(value);
     if (current == start) {
-      current.Next().setPrev(newNode);
-      newNode.setNext(current.Next());
-      start = newNode;
-    }
-    if (current == end) {
-      current.Prev().setNext(newNode);
-      newNode.setPrev(current.Prev());
+      current.next().setPrev(newNode);  //sets the previous node of the next to the newNode
+      newNode.setNext(current.next());  //sets the next node of the newNode to the current Next node
+      start = newNode;                  //replaces start with newNode
+    } else if (current == end) {
+      current.prev().setNext(newNode);  //sets the next node of previous to the newNode
+      newNode.setPrev(current.prev());  //sets the previous node of the newNode to the current previous Node
       end = newNode;
     } else {
-      current.Next().setPrev(newNode);
-      newNode.setNext(current.Next());
-      current.Prev().setNext(newNode);
-      newNode.setPrev(current.Prev());
+      current.next().setPrev(newNode);  //essentially combines the code above as the node is in the middle, not start/end
+      newNode.setNext(current.next());
+      current.prev().setNext(newNode);
+      newNode.setPrev(current.prev());
     }
     return get(index);
   }
 
   public boolean contains(Integer value) {
     Node current = start;
-    for (int x = 0; x < length; x++) {
+    for (int x = 0; x < length; x++) {    //loops through the LinkedList
       if (current.getData() == value) {
-        return true;
+        return true;                      //returns true if the value is equal to the data of current node
       }
-      current = current.Next();
+      current = current.next();
     }
-    return false;
+    return false;                         //returns false if done looping and value is not found
   }
 
   public int indexOf(Integer value) {
@@ -94,43 +94,42 @@ public class MyLinkedList{
       if (current.getData() == value) {
         return x;
       }
-      current = current.Next();
+      current = current.next();
     }
     return -1;
   }
 
   public void add(int index, Integer value) {
-    if (index <= length) {
       Node current = getNthNode(index);
       Node newNode = new Node(value);
       if (current == start) {
         current.setPrev(newNode);
         newNode.setNext(current);
         start = newNode;
+      } else if (index == length) {
+        add(index);
       }
-
       else {
+        current.prev().setNext(newNode);
+        newNode.setPrev(current.prev());
         current.setPrev(newNode);
         newNode.setNext(current);
-        current.Prev().setNext(newNode);
-        newNode.setPrev(current.Prev());
       }
-    } else add(value);
+      length++;
   }
 
   public Integer remove(int index) {
     Node current = getNthNode(index);
     if (current == start) {
-      current.Next().setPrev(null);
-      start = current.Next();
-    }
-    if (current == end) {
-      current.Prev().setNext(null);
-      end = current.Prev();
+      current.next().setPrev(null);
+      start = current.next();
+    } else if (current == end) {
+      current.prev().setNext(null);
+      end = current.prev();
     }
     else {
-      current.Prev().setNext(current.Next());
-      current.Next().setPrev(current.Prev());
+      current.prev().setNext(current.next());
+      current.next().setPrev(current.prev());
     }
     length--;
     return current.getData();
@@ -144,8 +143,4 @@ public class MyLinkedList{
     }
     return false;
   }
-
 }
-
-
-//add exceptions!
