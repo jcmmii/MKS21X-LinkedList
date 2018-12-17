@@ -100,6 +100,7 @@ public class MyLinkedList{
   }
 
   public void add(int index, Integer value) {
+      if (index > length) throw new IndexOutOfBoundsException();
       Node current, newNode, temp;
       newNode = new Node(value);                    //creates a new Node based off value
       if (index == length) {                        //if the index is the length of the LinkedList, essentially adds to the end
