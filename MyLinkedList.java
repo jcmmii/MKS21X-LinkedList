@@ -171,7 +171,7 @@ public class MyLinkedList{
       if (other.length == 1) {
         this.end = other.start;
         this.start.setNext(this.end); //has the two nodes (start, end) reference each other
-        this.end.setPrev(this.start); //similar to the constructor with length 2
+        this.end.setPrev(this.start); //similar to the add method with length 2
         other.length = 0;
         this.length = 2;
       }
