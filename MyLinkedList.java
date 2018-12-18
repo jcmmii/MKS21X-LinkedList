@@ -153,15 +153,16 @@ public class MyLinkedList{
 
   //Connecting two linked lists
   public void extend(MyLinkedList other) {
+    //in all cases: if other MLL has length of 0, nothing can/is done and this MLL stays the same
     if (this.length == 0) {
       if (other.length == 1) {
-        this.length++;
-        this.start = other.start;
+        this.length = 1;
+        this.start = other.start; //MLLs with length of 1 only have start nodes
         other.length = 0;
       }
       if (other.length > 1) {
         this.length = other.length;
-        this.start = other.start;
+        this.start = other.start; //MLLs with length > 1 have end nodes, accounts for that
         this.end = other.end;
         other.length = 0;
       }
@@ -169,14 +170,14 @@ public class MyLinkedList{
   if (this.length == 1) {
       if (other.length == 1) {
         this.end = other.start;
-        this.start.setNext(this.end);
-        this.end.setPrev(this.start);
+        this.start.setNext(this.end); //has the two nodes (start, end) reference each other
+        this.end.setPrev(this.start); //similar to the constructor with length 2
         other.length = 0;
         this.length = 2;
       }
       if (other.length > 1) {
         this.end = other.end;
-        this.start.setNext(other.start);
+        this.start.setNext(other.start);          //has two beginning nodes reference each other
         other.start.setPrev(this.start);
         this.length = this.length + other.length;
         other.length = 0;
@@ -186,17 +187,20 @@ public class MyLinkedList{
     if (other.length == 1) {
       this.end.setNext(other.start);
       other.start.setPrev(this.end);
-      this.end = other.start;
+      this.end = other.start;             //other MLL has only start node, this MLL references to that as end
       this.length = this.length + 1;
       other.length = 0;
     }
     if (other.length > 1) {
       this.end.setNext(other.start);
       other.start.setPrev(this.end);
-      this.end = other.end;
+      this.end = other.end;             //if other MLL has length >1, its end is now this MLL's end
       this.length = this.length + other.length;
       other.length = 0;
     }
   }
+  //this method does not clear out the other MyLinkedList
+  //as long as the other MyLinkedList has length of 0, whenever a method is done on it,
+  //it will revert back to as if it was empty and as if it was cleared out
 }
 }
