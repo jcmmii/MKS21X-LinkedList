@@ -150,4 +150,15 @@ public class MyLinkedList{
     }
     return false;                   //false is returned otherwise
   }
+
+  //Connecting two linked lists
+  public void extend(MyLinkedList other) {
+    Node A = this.end;
+    Node B = other.start;
+    A.setNext(B);
+    B.setPrev(A);
+    this.end = other.end;
+    this.length = this.length + other.length;
+    other.length = 0;
+  }
 }
