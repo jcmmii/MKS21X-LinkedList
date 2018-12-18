@@ -153,12 +153,50 @@ public class MyLinkedList{
 
   //Connecting two linked lists
   public void extend(MyLinkedList other) {
-    Node A = this.end;
-    Node B = other.start;
-    A.setNext(B);
-    B.setPrev(A);
-    this.end = other.end;
-    this.length = this.length + other.length;
-    other.length = 0;
+    if (this.length == 0) {
+      if (other.length == 1) {
+        this.length++;
+        this.start = other.start;
+        other.length = 0;
+      }
+      if (other.length > 1) {
+        this.length = other.length;
+        this.start = other.start;
+        this.end = other.end;
+        other.length = 0;
+      }
+    }
+  if (this.length == 1) {
+      if (other.length == 1) {
+        this.end = other.start;
+        this.start.setNext(this.end);
+        this.end.setPrev(this.start);
+        other.length = 0;
+        this.length = 2;
+      }
+      if (other.length > 1) {
+        this.end = other.end;
+        this.start.setNext(other.start);
+        other.start.setPrev(this.start);
+        this.length = this.length + other.length;
+        other.length = 0;
+      }
+    }
+  if (this.length > 1) {
+    if (other.length == 1) {
+      this.end.setNext(other.start);
+      other.start.setPrev(this.end);
+      this.end = other.start;
+      this.length = this.length + 1;
+      other.length = 0;
+    }
+    if (other.length > 1) {
+      this.end.setNext(other.start);
+      other.start.setPrev(this.end);
+      this.end = other.end;
+      this.length = this.length + other.length;
+      other.length = 0;
+    }
   }
+}
 }
